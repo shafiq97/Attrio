@@ -418,6 +418,7 @@
     </section><!-- End Team Section -->
 
     <!-- ======= Contact Section ======= -->
+
     <section id="contact">
       <div class="container wow fadeInUp">
         <div class="row">
@@ -448,10 +449,12 @@
 
             </div>
           </div>
+    <div class="container" id="contact-toast"></div>
+
 
           <div class="col-lg-5 col-md-8">
-            <div class="form">
-              <form action="https://kopisuam.me/api/attrio/contact-us" method="post" role="form" class="php-email-form">
+            <div class="form" >
+              <form role="form" id="contact-us-form" class="php-email-form">
                 <div class="form-group">
                   <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
                   <div class="validate"></div>
@@ -527,3 +530,42 @@
 </body>
 
 </html>
+
+<script>
+  $(document).ready(function() {
+      (function ($) {
+        $.fn.serializeFormJSON = function () {
+
+            var o = {};
+            var a = this.serializeArray();
+            $.each(a, function () {
+                if (o[this.name]) {
+                    if (!o[this.name].push) {
+                        o[this.name] = [o[this.name]];
+                    }
+                    o[this.name].push(this.value || '');
+                } else {
+                    o[this.name] = this.value || '';
+                }
+            });
+            return o;
+        };
+    })(jQuery);
+
+    $('form').on('submit',function (e){
+      e.preventDefault();
+      var data = $(this).serializeFormJSON();
+
+      $.post("https:/kopisuam.me/api/attrio/contact-us",JSON.stringify(data),function(data){
+        $("#contact-toast").html(`<div class="alert alert-success" role="alert">
+              Your form is sucessfuly submiited, we will response to you as soon as possible!.
+            </div>`)
+      })
+      
+    })
+  });
+ 
+ 
+
+
+</script>
