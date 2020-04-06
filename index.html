@@ -529,7 +529,7 @@
       e.preventDefault();
       var data = $(this).serializeFormJSON();
 
-      $.post("https:/kopisuam.me/api/attrio/contact-us",JSON.stringify(data),function(data){
+      $.post("https://kopisuam.me/api/attrio/contact-us",JSON.stringify(data),function(data){
         $("#contact-toast").html(`<div class="alert alert-success" role="alert">
               Your form is sucessfuly submiited, we will response to you as soon as possible!.
             </div>`)
